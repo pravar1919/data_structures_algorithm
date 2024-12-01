@@ -55,8 +55,32 @@ class LinkedList:
             # 3rd after removal, if there is no node.
             self.head = None
             self.tail = None
-        return temp
-                
+        return True
+    
+    def prepend(self, value):
+        new_node = Node(value)
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+        self.length += 1
+        return True
+    
+    def pop_first(self):
+        if self.length == 0:
+            return 
+        temp = self.head
+        self.head = self.head.next
+        temp.next = None
+        self.length -= 1
+        if self.length == 0:
+            self.tail = None
+        return self.tail
+
+
+
 
 
 
@@ -64,10 +88,11 @@ class LinkedList:
 
     
 l = LinkedList(4)
-# l.append(5)
-# l.append(6)
-# l.append(9)
-# l.append(8)
-# l.append(7)
+l.append(5)
+l.append(6)
+l.append(9)
+l.append(8)
+l.prepend(1)
 l.pop()
+l.pop_first()
 l.print_list()
