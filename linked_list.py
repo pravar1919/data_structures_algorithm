@@ -24,7 +24,6 @@ class LinkedList:
             li += str(temp.value) + "-->"
             temp = temp.next
         print(li)
-        print(self.length)
 
     def append(self, value):
         new_node = Node(value)
@@ -35,6 +34,7 @@ class LinkedList:
             self.tail.next = new_node
             self.tail = new_node
         self.length += 1
+        return True
 
     def pop(self):
         # here we have 3 use cases.
@@ -79,6 +79,41 @@ class LinkedList:
             self.tail = None
         return self.tail
 
+    def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        temp = self.head
+        for _ in range(index):
+            temp = temp.next
+        return temp
+
+    def set_value(self, index, value):
+        temp = self.get(index)
+        if temp:
+            temp.value = value
+            return True
+        return False
+    
+    def insert(self, index, value):
+        print(self.length, index)
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        prev = self.get(index - 1)
+        new_node = Node(value)
+        new_node.next = prev.next
+        prev.next = new_node
+        self.length +=1
+        return True
+
+
+
+
+
+
 
 
 
@@ -92,7 +127,12 @@ l.append(5)
 l.append(6)
 l.append(9)
 l.append(8)
-l.prepend(1)
-l.pop()
-l.pop_first()
+l.append(1)
+# l.pop()
+# l.pop_first()
 l.print_list()
+# l.set_value(0, 10)
+l.insert(6, 3)
+
+l.print_list()
+print(l.get(3).value)
